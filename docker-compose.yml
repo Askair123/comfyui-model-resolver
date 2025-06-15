@@ -5,8 +5,8 @@ services:
     build: .
     container_name: comfyui-model-resolver
     ports:
-      - "8000:8000"  # FastAPI backend
-      - "7860:7860"  # Gradio frontend
+      - "5002:5002"  # FastAPI backend
+      - "5001:5001"  # Gradio frontend
     volumes:
       - ./data:/app/data
       - /workspace:/workspace  # Mount workspace for ComfyUI access

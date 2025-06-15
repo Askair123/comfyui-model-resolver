@@ -10,7 +10,7 @@ import json
 
 async def test_api():
     """Test basic API endpoints."""
-    base_url = "http://localhost:8000"
+    base_url = "http://localhost:5002"
     
     async with httpx.AsyncClient() as client:
         # Test health endpoint

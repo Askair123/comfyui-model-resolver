@@ -62,9 +62,9 @@ fi
 
 # Set default values if not provided
 export API_HOST=${API_HOST:-0.0.0.0}
-export API_PORT=${API_PORT:-8000}
+export API_PORT=${API_PORT:-5002}      # FastAPI on 5002 for RunPod
 export GRADIO_HOST=${GRADIO_HOST:-0.0.0.0}
-export GRADIO_PORT=${GRADIO_PORT:-7860}
+export GRADIO_PORT=${GRADIO_PORT:-5001}  # Gradio on 5001 for RunPod
 
 # Start FastAPI backend
 echo -e "\nStarting FastAPI backend on port $API_PORT..."

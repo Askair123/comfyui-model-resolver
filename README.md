@@ -1,9 +1,21 @@
 # ComfyUI Model Resolver
 
-A powerful tool for automatically finding and downloading AI models required by ComfyUI workflows. Supports multi-platform search across HuggingFace and Civitai with intelligent routing based on model types.
+A powerful tool for automatically finding and downloading AI models required by ComfyUI workflows. Now with a complete web interface for easier model management!
+
+## 🎉 Version 2.0 - Web Interface Release
+
+**New in v2.0:**
+- 🌐 **Web Interface**: User-friendly Gradio interface for all operations
+- ⚡ **Real-time Updates**: Live download progress with WebSocket support
+- 🚀 **FastAPI Backend**: RESTful API for integration with other tools
+- 🐳 **Docker Support**: Easy deployment with Docker/Docker Compose
+- 📊 **Batch Operations**: Analyze multiple workflows simultaneously
+
+[Quick Start with Web UI →](#web-interface-v20)
 
 ## Features
 
+### Core Features (v1.0)
 - 🔍 **100% Model Detection**: Advanced V3 analyzer with 6 detection strategies
 - 🌐 **Multi-Platform Search**: Intelligent routing between HuggingFace and Civitai
 - 🚀 **Optimized Search**: Smart search term generation and caching
@@ -11,6 +23,13 @@ A powerful tool for automatically finding and downloading AI models required by 
 - 📦 **GGUF Support**: Specialized search for quantized models (city96, Kijai)
 - 💾 **Download Planning**: Generate wget commands or shell scripts
 - 🔧 **Flexible Configuration**: YAML config with environment variable support
+
+### New in v2.0
+- 🖥️ **Web Dashboard**: Analyze workflows and manage downloads from browser
+- 📡 **API Access**: Full REST API with automatic documentation
+- 🔄 **Live Progress**: Real-time download status and queue management
+- 📋 **Export Scripts**: Generate bash/powershell/python download scripts
+- 🎨 **Chinese UI**: Localized interface for better user experience
 
 ## Quick Start
 
@@ -87,6 +106,111 @@ report = complete_workflow_resolution('workflow.json')
 for model in report['models']:
     if model['search_result']['status'] == 'found':
         print(f"{model['filename']} -> {model['search_result']['url']}")
+```
+
+## Web Interface (v2.0)
+
+### Starting the Web UI
+
+The easiest way to use ComfyUI Model Resolver is through the web interface:
+
+```bash
+# Start the web interface
+./start.sh
+
+# Or manually start backend and frontend
+python -m api.main &  # Start API backend
+python -m frontend.app  # Start Gradio UI
+```
+
+Visit http://localhost:7860 in your browser to access the interface.
+
+### Docker Deployment
+
+For production deployment, use Docker:
+
+```bash
+# Using Docker Compose (recommended)
+docker-compose up -d
+
+# Or build and run manually
+docker build -t comfyui-model-resolver .
+docker run -p 7860:7860 -p 8000:8000 \
+  -v /workspace/comfyui:/workspace/comfyui \
+  comfyui-model-resolver
+```
+
+### Web UI Features
+
+The web interface provides four main tabs:
+
+1. **工作流分析 (Workflow Analysis)**
+   - Select and analyze multiple workflows
+   - View detected models and their status
+   - Batch selection for missing models
+
+2. **模型搜索 (Model Search)**
+   - Search models across HuggingFace and Civitai
+   - View model details and download links
+   - Smart platform routing based on model type
+
+3. **下载管理 (Download Manager)**
+   - Queue-based download system
+   - Real-time progress tracking
+   - Pause/resume/cancel support
+
+4. **批量导出 (Batch Export)**
+   - Generate download scripts (bash/powershell/python)
+   - Export model lists as JSON
+   - Custom script templates
+
+### API Documentation
+
+The FastAPI backend provides a complete REST API:
+
+- **API Docs**: http://localhost:8000/docs
+- **OpenAPI Schema**: http://localhost:8000/openapi.json
+
+Example API usage:
+
+```python
+import requests
+
+# Analyze workflows
+response = requests.post(
+    "http://localhost:8000/api/workflow/analyze",
+    json={
+        "workflow_paths": ["/path/to/workflow.json"],
+        "check_local": True
+    }
+)
+
+# Search for models
+response = requests.post(
+    "http://localhost:8000/api/search",
+    json={
+        "model_names": ["flux1-dev-Q4_0.gguf"],
+        "model_types": ["unet"]
+    }
+)
+```
+
+### Configuration for Web UI
+
+The web interface uses the same `config.yaml` file. Additional settings:
+
+```yaml
+# Web UI specific settings
+web:
+  host: "0.0.0.0"
+  port: 7860
+  api_port: 8000
+  
+# Download settings
+download:
+  max_concurrent: 3
+  chunk_size: 8192
+  resume_enabled: true
 ```
 
 ## Platform Routing Logic

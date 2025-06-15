@@ -14,8 +14,9 @@ logger = logging.getLogger(__name__)
 class APIClient:
     """Client for communicating with FastAPI backend."""
     
-    def __init__(self, base_url: str = "http://localhost:8000"):
-        self.base_url = base_url
+    def __init__(self, base_url: str = None):
+        import os
+        self.base_url = base_url or os.getenv("API_URL", "http://localhost:5002")
         self.client = httpx.AsyncClient(timeout=30.0)
     
     async def __aenter__(self):
@@ -213,7 +214,7 @@ class APIClient:
 class SyncAPIClient:
     """Synchronous wrapper for APIClient."""
     
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(self, base_url: str = None):
         self.base_url = base_url
         self._client = None
     

@@ -30,8 +30,8 @@ docker build -t comfyui-resolver:v2.0 .
 
 # 运行容器
 docker run -d \
-  -p 7860:7860 \
-  -p 8000:8000 \
+  -p 5001:5001 \
+  -p 5002:5002 \
   -v /workspace:/workspace \
   -v $(pwd)/data:/app/data \
   -e CIVITAI_API_KEY=your_key \

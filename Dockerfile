@@ -29,11 +29,11 @@ RUN chmod +x start.sh
 RUN mkdir -p data
 
 # Expose ports
-EXPOSE 8000 7860
+EXPOSE 5002 5001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:5002/health || exit 1
 
 # Default environment variables
 ENV PYTHONUNBUFFERED=1
