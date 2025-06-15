@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  model-resolver:
+    build: .
+    container_name: comfyui-model-resolver
+    ports:
+      - "8000:8000"  # FastAPI backend
+      - "7860:7860"  # Gradio frontend
+    volumes:
+      - ./data:/app/data
+      - /workspace:/workspace  # Mount workspace for ComfyUI access
+    environment:
+      - CIVITAI_API_KEY=${CIVITAI_API_KEY}
+      - HF_TOKEN=${HF_TOKEN}
+      - COMFYUI_ROOT=/workspace/ComfyUI
+    restart: unless-stopped
+    
+  # Optional: Redis for caching (future enhancement)
+  # redis:
+  #   image: redis:alpine
+  #   container_name: model-resolver-redis
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
