@@ -116,15 +116,6 @@ def analyze_selected_workflows(selected_paths: List[str]) -> Tuple[gr.CheckboxGr
         return gr.CheckboxGroup(choices=[], value=[]), f"错误: {str(e)}", f"分析失败: {str(e)}"
 
 
-def select_missing_models(current_choices):
-    """Select only missing models."""
-    missing = []
-    for label, filename in current_choices.choices:
-        if filename in current_models and not current_models[filename]['exists_locally']:
-            missing.append(filename)
-    return missing
-
-
 def search_selected_models(selected_models: List[str]) -> Tuple[str, str]:
     """Search for selected models."""
     if not selected_models:
@@ -264,7 +255,6 @@ def create_interface():
                 )
                 
                 with gr.Row():
-                    select_missing_btn = gr.Button("仅选缺失", size="sm")
                     search_btn = gr.Button("搜索选中的模型", variant="primary")
                     export_model_script_btn = gr.Button("导出下载脚本")
                 
@@ -357,12 +347,6 @@ def create_interface():
             fn=analyze_selected_workflows,
             inputs=[workflow_checklist],
             outputs=[model_checklist, workflow_info, log_output]
-        )
-        
-        select_missing_btn.click(
-            fn=select_missing_models,
-            inputs=[model_checklist],
-            outputs=[model_checklist]
         )
         
         search_btn.click(

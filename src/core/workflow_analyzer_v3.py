@@ -180,20 +180,34 @@ class WorkflowAnalyzerV3:
         
         def scan_object(obj, path=""):
             if isinstance(obj, str):
-                # Check for model files
-                for ext in self.model_extensions:
-                    if ext in obj.lower():
-                        filename = self._extract_filename(obj)
-                        if filename:
-                            model_type = self._infer_type(filename, obj, "")
-                            models.append({
-                                'filename': filename,
-                                'model_type': model_type,
-                                'full_string': obj,
-                                'source': 'string_scan',
-                                'json_path': path
-                            })
-                        break
+                # Skip if this looks like markdown documentation
+                if self._is_markdown_content(obj):
+                    # Extract only model filenames from markdown links
+                    markdown_models = self._extract_from_markdown_links(obj)
+                    for filename in markdown_models:
+                        model_type = self._infer_type(filename, obj, "")
+                        models.append({
+                            'filename': filename,
+                            'model_type': model_type,
+                            'full_string': filename,
+                            'source': 'markdown_link',
+                            'json_path': path
+                        })
+                else:
+                    # Check for model files
+                    for ext in self.model_extensions:
+                        if ext in obj.lower():
+                            filename = self._extract_filename(obj)
+                            if filename:
+                                model_type = self._infer_type(filename, obj, "")
+                                models.append({
+                                    'filename': filename,
+                                    'model_type': model_type,
+                                    'full_string': obj,
+                                    'source': 'string_scan',
+                                    'json_path': path
+                                })
+                            break
                         
             elif isinstance(obj, dict):
                 for k, v in obj.items():
@@ -322,6 +336,41 @@ class WorkflowAnalyzerV3:
                                     'source': 'comment',
                                     'node_type': node_type
                                 })
+        
+        return models
+    
+    def _is_markdown_content(self, text: str) -> bool:
+        """Check if text appears to be markdown documentation."""
+        if len(text) < 100:
+            return False
+        
+        # Check for multiple markdown indicators
+        markdown_indicators = [
+            '\n## ', '\n### ', '**', '- [', '](', '\n- ', '\n* '
+        ]
+        
+        indicator_count = sum(1 for indicator in markdown_indicators if indicator in text)
+        newline_count = text.count('\n')
+        
+        # If it has many newlines and markdown features, it's probably documentation
+        return newline_count > 5 and indicator_count >= 2
+    
+    def _extract_from_markdown_links(self, markdown: str) -> List[str]:
+        """Extract model filenames only from markdown links."""
+        models = []
+        
+        # Pattern to find markdown links: [text](url)
+        link_pattern = r'\[([^\]]+)\]\(([^)]+)\)'
+        
+        for match in re.finditer(link_pattern, markdown):
+            link_text = match.group(1)
+            
+            # Check if link text is a model filename
+            if any(ext in link_text.lower() for ext in self.model_extensions):
+                # Clean up the filename
+                filename = link_text.strip()
+                if filename not in models:
+                    models.append(filename)
         
         return models
     
