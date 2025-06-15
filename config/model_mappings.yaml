@@ -1,0 +1,129 @@
+# Node type to model type and directory mappings
+
+node_mappings:
+  # Checkpoint loaders
+  CheckpointLoaderSimple:
+    model_type: "checkpoint"
+    directory: "checkpoints"
+    extensions: [".safetensors", ".ckpt", ".pt"]
+    
+  CheckpointLoader:
+    model_type: "checkpoint"
+    directory: "checkpoints"
+    extensions: [".safetensors", ".ckpt", ".pt"]
+    
+  # ControlNet
+  ControlNetLoader:
+    model_type: "controlnet"
+    directory: "controlnet"
+    extensions: [".safetensors", ".pth", ".pt"]
+    
+  ControlNetApply:
+    model_type: "controlnet"
+    directory: "controlnet"
+    extensions: [".safetensors", ".pth", ".pt"]
+    
+  # LoRA
+  LoraLoader:
+    model_type: "lora"
+    directory: "loras"
+    extensions: [".safetensors", ".pt"]
+    
+  LoRALoader:
+    model_type: "lora"
+    directory: "loras"
+    extensions: [".safetensors", ".pt"]
+    
+  # VAE
+  VAELoader:
+    model_type: "vae"
+    directory: "vae"
+    extensions: [".safetensors", ".pt", ".ckpt"]
+    
+  VAEDecode:
+    model_type: "vae"
+    directory: "vae"
+    extensions: [".safetensors", ".pt", ".ckpt"]
+    
+  # Upscale
+  UpscaleModelLoader:
+    model_type: "upscale"
+    directory: "upscale_models"
+    extensions: [".pth", ".pt", ".safetensors"]
+    
+  ESRGANModelLoader:
+    model_type: "upscale"
+    directory: "upscale_models"
+    extensions: [".pth", ".pt", ".safetensors"]
+    
+  # CLIP
+  CLIPLoader:
+    model_type: "clip"
+    directory: "clip"
+    extensions: [".safetensors", ".bin", ".pt"]
+    
+  CLIPTextEncode:
+    model_type: "clip"
+    directory: "clip"
+    extensions: [".safetensors", ".bin", ".pt"]
+    
+  # UNet
+  UNETLoader:
+    model_type: "unet"
+    directory: "unet"
+    extensions: [".safetensors", ".pt"]
+    
+  # Embeddings
+  EmbeddingLoader:
+    model_type: "embeddings"
+    directory: "embeddings"
+    extensions: [".pt", ".safetensors", ".bin"]
+    
+  # Hypernetworks
+  HypernetworkLoader:
+    model_type: "hypernetworks"
+    directory: "hypernetworks"
+    extensions: [".pt", ".safetensors"]
+    
+  # CLIP Vision
+  CLIPVisionLoader:
+    model_type: "clip_vision"
+    directory: "clip_vision"
+    extensions: [".safetensors", ".bin", ".pt"]
+
+# Custom node mappings (for popular custom nodes)
+custom_node_mappings:
+  # AnimateDiff
+  AnimateDiffLoaderWithContext:
+    model_type: "animatediff"
+    directory: "animatediff_models"
+    extensions: [".ckpt", ".safetensors"]
+    
+  # IP-Adapter
+  IPAdapterModelLoader:
+    model_type: "ipadapter"
+    directory: "ipadapter"
+    extensions: [".bin", ".safetensors"]
+    
+  # InstantID
+  InstantIDModelLoader:
+    model_type: "instantid"
+    directory: "instantid"
+    extensions: [".bin", ".onnx"]
+    
+  # GGUF support
+  LoaderGGUF:
+    model_type: "unet"
+    directory: "unet"
+    extensions: [".gguf"]
+    
+  ClipLoaderGGUF:
+    model_type: "text_encoders"
+    directory: "text_encoders"
+    extensions: [".safetensors", ".gguf"]
+    
+  # rgthree nodes
+  "Power Lora Loader (rgthree)":
+    model_type: "lora"
+    directory: "loras"
+    extensions: [".safetensors", ".pt"]

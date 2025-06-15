@@ -1,0 +1,53 @@
+# ComfyUI Model Resolver Default Configuration
+
+# Base paths
+paths:
+  comfyui_base: "/workspace/comfyui"
+  models_base: "/workspace/comfyui/models"
+  cache_dir: "~/.cache/comfyui-model-resolver"
+
+# Model directory mappings
+model_dirs:
+  checkpoint: "checkpoints"
+  controlnet: "controlnet"
+  lora: "loras"
+  vae: "vae"
+  upscale: "upscale_models"
+  embeddings: "embeddings"
+  clip: "clip"
+  unet: "unet"
+  hypernetworks: "hypernetworks"
+  clip_vision: "clip_vision"
+
+# Search settings
+search:
+  cache_enabled: true
+  cache_ttl_hours: 168  # 1 week
+  max_concurrent_searches: 5
+  timeout_seconds: 30
+
+# Download settings
+download:
+  max_concurrent_downloads: 3
+  chunk_size_mb: 4
+  use_temp_files: true
+  verify_checksums: false
+  retry_attempts: 3
+  retry_delay_seconds: 5
+
+# Matching settings
+matching:
+  min_keyword_match_ratio: 0.7
+  consider_version_variants: true
+  fuzzy_match_threshold: 0.8
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "model_resolver.log"
+  
+# API tokens (use environment variables)
+tokens:
+  huggingface: "${HF_TOKEN}"
+  civitai: "${CIVITAI_TOKEN}"

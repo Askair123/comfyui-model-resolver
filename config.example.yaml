@@ -1,0 +1,48 @@
+# ComfyUI Model Resolver Configuration
+# Copy this file to config.yaml and update with your settings
+
+# API Keys
+api_keys:
+  huggingface: ""  # Optional: HuggingFace API token for private repos
+  civitai: ""      # Required for Civitai searches
+
+# Paths
+paths:
+  comfyui_base: "/workspace/comfyui"  # Base ComfyUI installation path
+  models_base: "/workspace/comfyui/models"  # Models directory
+  cache_dir: "~/.cache/comfyui-model-resolver"  # Cache directory
+
+# Search Settings
+search:
+  max_concurrent: 3  # Maximum concurrent searches
+  cache_ttl: 86400  # Cache time-to-live in seconds (24 hours)
+  platforms:
+    - huggingface
+    - civitai
+
+# Model Type Mappings
+model_types:
+  checkpoint: "checkpoints"
+  lora: "loras"
+  vae: "vae"
+  clip: "clip"
+  unet: "unet"
+  controlnet: "controlnet"
+  upscale: "upscale_models"
+
+# Platform Routing Rules
+routing:
+  lora:
+    priority: ["civitai", "huggingface"]
+  official:
+    priority: ["huggingface"]
+  gguf:
+    priority: ["huggingface"]
+    repositories:
+      - "city96"
+      - "Kijai"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "resolver.log"

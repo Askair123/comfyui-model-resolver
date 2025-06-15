@@ -1,0 +1,101 @@
+# Version identifiers and variants to filter during keyword matching
+
+version_variants:
+  # Quantization formats
+  - q4
+  - q5
+  - q6
+  - q8
+  - q4_0
+  - q4_1
+  - q4_k
+  - q4_k_m
+  - q4_k_s
+  - q5_0
+  - q5_1
+  - q5_k
+  - q5_k_m
+  - q5_k_s
+  - q6_k
+  - q8_0
+  - gguf
+  - ggml
+  
+  # Precision formats
+  - fp16
+  - fp32
+  - bf16
+  - int8
+  - f16
+  - f32
+  
+  # Model variants
+  - pruned
+  - ema
+  - emaonly
+  - vae
+  - novae
+  - inpainting
+  - refiner
+  - base
+  - full
+  - lite
+  
+  # Version numbers
+  - v1
+  - v2
+  - v3
+  - v4
+  - v5
+  - v1.0
+  - v1.1
+  - v1.2
+  - v1.3
+  - v1.4
+  - v1.5
+  - v2.0
+  - v2.1
+  - v3.0
+  - final
+  - latest
+  - alpha
+  - beta
+  - rc
+  - release
+  
+  # Size variants
+  - 512
+  - 768
+  - 1024
+  - 2048
+  - xl
+  - xxl
+  - small
+  - medium
+  - large
+  
+# Keywords to always preserve (override filters)
+preserve_keywords:
+  - sdxl
+  - sd15
+  - sd21
+  - flux
+  - animatediff
+  - controlnet
+  - openpose
+  - canny
+  - depth
+  - normal
+  - semantic
+
+# Platform-specific patterns
+platform_patterns:
+  huggingface:
+    - "diffusers"
+    - "transformers"
+    - "safetensors"
+  
+  civitai:
+    - "civitai"
+    - "model"
+    - "version"
