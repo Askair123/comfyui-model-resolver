@@ -15,7 +15,7 @@ import time
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from src.core.workflow_analyzer_v3 import WorkflowAnalyzerV3
-from src.core.local_scanner import LocalModelScanner
+from src.core.local_model_scanner import LocalModelScanner
 
 from ..models.workflow import (
     WorkflowModel, ModelInfo, WorkflowStatus,
