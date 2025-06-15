@@ -1,0 +1,4 @@
+# ComfyUI Model Resolver - UI Dependencies
+# Gradio 前端依赖（可选）
+
+gradio>=4.0.0        # Web UI 框架

@@ -13,7 +13,7 @@ from ..models.download import (
     DownloadStatusResponse, BatchDownloadRequest, BatchDownloadResponse
 )
 from ..services.download_service import DownloadService
-from ..main import download_service as global_download_service
+# from ..main import download_service as global_download_service
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/download", tags=["download"])
